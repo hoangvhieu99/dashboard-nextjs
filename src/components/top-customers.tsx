@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LabelList,
   TooltipProps,
 } from "recharts";
 import Button from "./ui/button";
@@ -21,14 +20,7 @@ import {
 interface TopCustomersProps {
   data?: Customer[];
 }
-interface CustomizedLabelProps {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  value: number;
-  highlighted: boolean;
-}
+
 interface CustomTickProps {
   x: number;
   y: number;
@@ -99,36 +91,7 @@ export default function TopCustomers({ data }: TopCustomersProps) {
     }
     return null;
   };
-  const CustomizedLabel = (props: any) => {
-    const { x, y, width, height, value, highlighted } = props;
 
-    if (!highlighted) {
-      return null;
-    }
-
-    return (
-      <g>
-        <rect
-          x={x + width + 5}
-          y={y + height / 2 - 12}
-          width={60}
-          height={24}
-          fill="#18181B"
-          rx={4}
-          ry={4}
-        />
-        <text
-          x={x + width + 35}
-          y={y + height / 2 + 5}
-          textAnchor="middle"
-          fill="#FFFFFF"
-          fontSize={12}
-        >
-          {value.toLocaleString()}
-        </text>
-      </g>
-    );
-  };
   const CustomTick = ({ x, y, payload, index }: CustomTickProps) => {
     if (index === 0) {
       return (
@@ -208,13 +171,11 @@ export default function TopCustomers({ data }: TopCustomersProps) {
                     content={<CustomTooltip />}
                     cursor={{ fill: "transparent" }}
                   />
-                  <Bar dataKey="value" fill="#2196F3" radius={[0, 4, 4, 0]}>
-                    <LabelList
-                      dataKey="value"
-                      position="right"
-                      content={CustomizedLabel}
-                    />
-                  </Bar>
+                  <Bar
+                    dataKey="value"
+                    fill="#2196F3"
+                    radius={[0, 4, 4, 0]}
+                  ></Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
