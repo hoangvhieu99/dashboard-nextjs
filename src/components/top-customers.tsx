@@ -10,11 +10,32 @@ import {
   Tooltip,
   ResponsiveContainer,
   LabelList,
+  TooltipProps,
 } from "recharts";
 import Button from "./ui/button";
+import {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
 interface TopCustomersProps {
   data?: Customer[];
+}
+interface CustomizedLabelProps {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  value: number;
+  highlighted: boolean;
+}
+interface CustomTickProps {
+  x: number;
+  y: number;
+  payload: {
+    value: string;
+  };
+  index: number;
 }
 
 export default function TopCustomers({ data }: TopCustomersProps) {
@@ -56,9 +77,13 @@ export default function TopCustomers({ data }: TopCustomersProps) {
   };
 
   // Custom tooltip
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
       const highlighted = payload[0].payload.highlighted;
+      const value = payload[0]?.value;
 
       return (
         <div
@@ -66,7 +91,9 @@ export default function TopCustomers({ data }: TopCustomersProps) {
             highlighted ? "font-medium" : ""
           }`}
         >
-          <p className="text-sm">{payload[0].value.toLocaleString()}</p>
+          <p className="text-sm">
+            {value != null ? value.toLocaleString() : ""}
+          </p>
         </div>
       );
     }
@@ -102,7 +129,7 @@ export default function TopCustomers({ data }: TopCustomersProps) {
       </g>
     );
   };
-  const CustomTick = ({ x, y, payload, index }: any) => {
+  const CustomTick = ({ x, y, payload, index }: CustomTickProps) => {
     if (index === 0) {
       return (
         <>

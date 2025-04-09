@@ -33,6 +33,7 @@ export default function Dashboard() {
           description: "Không thể tải dữ liệu. Vui lòng thử lại sau.",
           variant: "destructive",
         });
+        console.log(err);
       } finally {
         setIsLoading(false);
       }

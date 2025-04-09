@@ -9,9 +9,23 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  TooltipProps,
 } from "recharts";
 import Button from "./ui/button";
+import {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
+interface CustomTickProps {
+  x?: number;
+  y?: number;
+  payload?: {
+    value: string;
+    coordinate?: number;
+  };
+  index?: number;
+}
 interface ProductionPlanProps {
   data?: ProductionPlanItem[];
 }
@@ -19,7 +33,10 @@ interface ProductionPlanProps {
 export default function ProductionPlan({ data }: ProductionPlanProps) {
   const hasData = !!data?.length;
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-gray-800 text-white p-2 rounded shadow-lg">
@@ -96,16 +113,16 @@ export default function ProductionPlan({ data }: ProductionPlanProps) {
     </Card>
   );
 }
-const CustomTick = ({ x, y, payload, index }: any) => {
+const CustomTick = ({ x, y, payload, index }: CustomTickProps) => {
   if (index === 0) {
     return (
       <>
-        <text x={x} y={y + 15} textAnchor="middle" fontSize={12} fill="#666">
-          {payload.value}
+        <text x={x} y={y! + 15} textAnchor="middle" fontSize={12} fill="#666">
+          {payload?.value}
         </text>
         <text
-          x={x - 150}
-          y={y + 15}
+          x={x! - 150}
+          y={y! + 15}
           textAnchor="start"
           fontSize={12}
           fill="#666"
@@ -117,8 +134,8 @@ const CustomTick = ({ x, y, payload, index }: any) => {
   }
 
   return (
-    <text x={x} y={y + 15} textAnchor="middle" fontSize={12} fill="#666">
-      {payload.value}
+    <text x={x} y={y! + 15} textAnchor="middle" fontSize={12} fill="#666">
+      {payload?.value}
     </text>
   );
 };
