@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, ChevronDown } from "lucide-react";
+import { Calendar } from "lucide-react";
 import type { ProductionStatus as ProductionStatusType } from "@/types";
 import Button from "./ui/button";
 

@@ -1,4 +1,4 @@
-import { Calendar, ChevronDown } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { TopProduct } from "@/types";
 import Button from "./ui/button";

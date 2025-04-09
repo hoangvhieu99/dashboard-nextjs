@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown } from "lucide-react";
 import type { Material } from "@/types";
 import Button from "./ui/button";
 import { Calendar } from "lucide-react";
